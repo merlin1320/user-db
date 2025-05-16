@@ -11,26 +11,28 @@ CREATE TABLE `Users` (
   UNIQUE KEY `Users_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
 -- `mysql-chal`.user_photo definition
 
 CREATE TABLE `user_photo` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `photo_url` varchar(255) NOT NULL,
-  `latitude` decimal(10,0) NOT NULL,
-  `longitude` decimal(10,0) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_id` bigint NOT NULL,
+  `longitude` decimal(10,0) NOT NULL,
+  `latitude` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_photo_unique` (`photo_url`),
-  UNIQUE KEY `user_photo_unique_1` (`latitude`),
-  UNIQUE KEY `user_photo_unique_2` (`longitude`),
-  CONSTRAINT `user_photo_Users_FK` FOREIGN KEY (`id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_photo_User_FK` (`user_id`),
+  CONSTRAINT `user_photo_User_FK` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 INSERT INTO `mysql-chal`.Users (username,created,last_updated) VALUES
 	 ('Merlin','2025-05-16 03:41:44','2025-05-16 03:41:44'),
 	 ('Roughnick','2025-05-16 03:41:44','2025-05-16 03:41:44'),
 	 ('Zorven','2025-05-16 03:41:44','2025-05-16 03:41:44');
+
+
+INSERT INTO `mysql-chal`.user_photo (photo_url,latitude,longitude,created,last_updated,user_id) VALUES
+	 ('https://images.squarespace-cdn.com/content/v1/607f89e638219e13eee71b1e/1684821560422-SD5V37BAG28BURTLIXUQ/michael-sum-LEpfefQf4rU-unsplash.jpg',100,100,'2025-05-16 05:16:41','2025-05-16 05:16:41',6);
